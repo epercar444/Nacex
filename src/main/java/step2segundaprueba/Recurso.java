@@ -1,6 +1,7 @@
 package step2segundaprueba;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -40,6 +41,22 @@ public class Recurso {
 		}
 		LeerRecurso u = new LeerRecurso();
 		this.propiedades = u.leerRecurso(nombreFicheroCompleto);
+	}
+	
+	public List<String> obtenerTraduccionesRealizadas(String nombreFicheroOrigen, String nombreFicheroIdioma) {
+	    LeerRecurso p = new LeerRecurso();
+	    Properties propiedadesOrigen = p.leerRecurso(nombreFicheroOrigen);
+	    Properties propiedadesIdioma = p.leerRecurso(nombreFicheroIdioma);
+
+	    List<String> estan = new ArrayList<String>();
+
+	    for (String clave : propiedadesOrigen.stringPropertyNames()) {
+	        if (propiedadesIdioma.containsKey(clave)) {
+	            estan.add(clave);
+	        }
+	    }
+
+	    return estan;
 	}
 
 	@Override
