@@ -11,13 +11,5 @@ public class PutTraduccion {
         Properties props = f.leerRecurso(nombreFichero);
 
         props.setProperty(clave, valor); // Añade o modifica
-
-        try {
-            FileOutputStream l = new FileOutputStream(nombreFichero);
-            props.store(l, "Hola");
-            l.close();
-        } catch (Exception e) {
-        	System.out.println(e.getMessage());
-        }
-    }
+}
 }
