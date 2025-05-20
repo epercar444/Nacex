@@ -12,13 +12,8 @@ public class FiltraNombreFicheroDos {
 	private static final String extension = ".properties";
 	public String filtraNombreFichero(String nombreCompleto) {
 		String nombreSinProperties = "";
-		String nombreFichero = "";
-		File directorio = new File(rutaDirectorio);
-		for (File f : directorio.listFiles()) {
-			if (f.getName().endsWith(extension) && f.getName().contains(nombreCompleto)) {
-				nombreFichero = f.getName();
-				nombreSinProperties = nombreFichero.replace(".properties", "");
-		}
+		if (nombreCompleto.endsWith(extension)) {
+			nombreSinProperties = nombreCompleto.replace(extension, "");
 	}
 		return nombreSinProperties;
 }

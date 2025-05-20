@@ -26,8 +26,10 @@ public class FiltraPorIdiomasDos {
 			String nombreBueno = k.filtraNombreFichero(j.getName());
 			List<File> idiomasPorNombre = t.FiltraFicheroIdiomaconNombre(rutaDirectorio, nombreBueno);
 			for (File g : idiomasPorNombre) {
-				Recurso u = new Recurso(rutaDirectorio,g.getName());
-				idiomas.add(u);
+				Recurso u = new Recurso(g.getName());
+				if (j.getName().contains(nombreFichero)) {
+					idiomas.add(u);
+				}
 			}
 		}
 		return idiomas;

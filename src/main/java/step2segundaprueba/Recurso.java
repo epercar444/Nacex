@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import step1.FiltraFicheroOrigen;
 import step2.FiltraNombreFichero;
 import step2.FiltraIdiomaporNombre;
 
@@ -16,7 +17,7 @@ public class Recurso {
 	public static void main(String[] args) {
 		File directorio = new File(rutaDirectorio);
 		for (File f : directorio.listFiles()) {
-			Recurso g = new Recurso(rutaDirectorio, f.getName());
+			Recurso g = new Recurso(f.getName());
 			System.out.println(g.toString());
 			System.out.println(g.propiedades);
 		}
@@ -27,18 +28,13 @@ public class Recurso {
 	private List<Recurso> idiomas;
 	private Properties propiedades;
 
-	public Recurso(String rutaCarpeta, String nombreFicheroCompleto) {
+	public Recurso(String nombreFicheroCompleto) {
 		super();
 		FiltraNombreFicheroDos r = new FiltraNombreFicheroDos();
 		this.nombreRecurso = r.filtraNombreFichero(nombreFicheroCompleto);
 		FiltraPorIdiomaDos f = new FiltraPorIdiomaDos();
 		this.idioma = f.filtraPorIdiomaDos(nombreFicheroCompleto);
-		if (!nombreFicheroCompleto.matches(expRegular)) {
-			FiltraPorIdiomasDos v = new FiltraPorIdiomasDos();
-			this.idiomas = v.idiomasDos(nombreFicheroCompleto);
-		} else {
-			this.idiomas = null;
-		}
+		this.idiomas = FiltraIdiomas (nombreFicheroCompleto);
 		LeerRecurso u = new LeerRecurso();
 		this.propiedades = u.leerRecurso(nombreFicheroCompleto);
 	}
@@ -58,7 +54,35 @@ public class Recurso {
 
 	    return estan;
 	}
-
+	public List<Recurso> FiltraIdiomas (String nombreFicheroCompleto) {
+		if (!nombreFicheroCompleto.matches(expRegular)) {
+			FiltraPorIdiomasDos v = new FiltraPorIdiomasDos();
+			this.idiomas = v.idiomasDos(nombreFicheroCompleto);
+		} else {
+			this.idiomas = null;
+		}
+		return this.idiomas; 
+	}
+    public String añadirNuevoIdioma(String idiomaNuevo, String nombreFicheroOrigen) {
+        Recurso recursoOrigen = new Recurso(nombreFicheroOrigen);
+        FiltraFicheroOrigen w = new FiltraFicheroOrigen();
+        List<File> ficherosOrigen = w.filtraFicheroOrigen();
+        for (File g : ficherosOrigen) {
+            if (g.getName().equals(nombreFicheroOrigen)) {
+                FiltraNombreFicheroDos r = new FiltraNombreFicheroDos();
+                String nombreRecurso = r.filtraNombreFichero(nombreFicheroOrigen);
+                String nombreNuevo = nombreRecurso + "_" + idiomaNuevo + extension;
+                Recurso nuevoIdioma = new Recurso(nombreNuevo);
+                List<Recurso> idiomas = recursoOrigen.getIdiomas();
+                if (idiomas == null) {
+                    idiomas = new ArrayList<>();
+                    recursoOrigen.setIdiomas(idiomas);
+                }
+                idiomas.add(nuevoIdioma);
+                }
+        }
+		return recursoOrigen.toString();
+    }
 	@Override
 	public String toString() {
 		return "Recurso [nombreRecurso=" + nombreRecurso + ", idioma=" + idioma + ", idiomas=" + idiomas + "]";
