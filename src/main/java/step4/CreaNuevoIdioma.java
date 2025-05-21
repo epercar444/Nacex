@@ -9,6 +9,7 @@ import step2segundaprueba.FiltraNombreFicheroDos;
 import step2segundaprueba.Recurso;
 
 public class CreaNuevoIdioma {
+	private static final String extension = ".properties";
 	/**
 	 * añadirNuevoIdioma: añade un nuevo idioma en la lista de idiomas del fichero que le indiquemos
 	 * @param idiomaNuevo idioma a añadir
@@ -17,6 +18,9 @@ public class CreaNuevoIdioma {
 	 */
 
     public String añadirNuevoIdioma(String idiomaNuevo, String nombreFicheroOrigen) {
+	    if (!nombreFicheroOrigen.endsWith(extension)) {	//le añado la extension en el caso que nos pasen el nombre con el siguiente formato: "web_ca"
+	        nombreFicheroOrigen += extension;
+	    }
         Recurso recursoOrigen = new Recurso(nombreFicheroOrigen);
         FiltraFicheroOrigen w = new FiltraFicheroOrigen();
         List<File> ficherosOrigen = w.filtraFicheroOrigen();
@@ -24,7 +28,7 @@ public class CreaNuevoIdioma {
             if (g.getName().equals(nombreFicheroOrigen)) {
                 FiltraNombreFicheroDos r = new FiltraNombreFicheroDos();
                 String nombreRecurso = r.filtraNombreFichero(nombreFicheroOrigen);
-                String nombreNuevo = nombreRecurso + "_" + idiomaNuevo + ".properties";
+                String nombreNuevo = nombreRecurso + "_" + idiomaNuevo + extension;
                 Recurso nuevoIdioma = new Recurso(nombreNuevo);
                 List<Recurso> idiomas = recursoOrigen.getIdiomas();
                 if (idiomas == null) {

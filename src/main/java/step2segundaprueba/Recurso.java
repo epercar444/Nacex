@@ -10,8 +10,7 @@ import step2.FiltraNombreFichero;
 import step2.FiltraIdiomaporNombre;
 
 public class Recurso {
-	private static final String extension = ".properties";
-	private static final String expRegular = ".*_[a-zA-Z]{2}\\.properties";
+ 	private static final String expRegular = ".*_[a-zA-Z]{2}\\.properties";
 	final static String rutaDirectorio = "src" + File.separator + "main" + File.separator + "resources";
 
 	public static void main(String[] args) {

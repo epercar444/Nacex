@@ -19,7 +19,7 @@ public class step2seguundaparteMain {
 			List<File> ficherosOrigen = m.filtraFicheroOrigen();
 			for (File f : ficherosOrigen) {
 				Recurso g = new Recurso(f.getName());
-				System.out.println(g.toString());
+				//System.out.println(g.toString());
 				//System.out.println(g.propiedades);
 	}
 			
